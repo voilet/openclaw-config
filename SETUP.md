@@ -315,6 +315,71 @@ whisper audio.mp3 --language Chinese --model medium
 # large   - 最准确，资源消耗最大
 ```
 
+### DeepSeek API 配置
+
+#### 添加 DeepSeek 提供商
+
+使用 `jq` 直接修改 `~/.openclaw/openclaw.json`：
+
+```bash
+cat ~/.openclaw/openclaw.json | jq '.models.providers.deepseek = {
+  "baseUrl": "https://api.deepseek.com",
+  "apiKey": "YOUR_DEEPSEEK_API_KEY",
+  "api": "openai-completions",
+  "models": [
+    {
+      "id": "deepseek-chat",
+      "name": "DeepSeek V3",
+      "reasoning": false,
+      "input": ["text"],
+      "cost": {"input": 0.27, "output": 0.27, "cacheRead": 0, "cacheWrite": 0},
+      "contextWindow": 64000,
+      "maxTokens": 8192
+    },
+    {
+      "id": "deepseek-reasoner",
+      "name": "DeepSeek R1",
+      "reasoning": true,
+      "input": ["text"],
+      "cost": {"input": 0.80, "output": 2.40, "cacheRead": 0, "cacheWrite": 0},
+      "contextWindow": 64000,
+      "maxTokens": 8192
+    }
+  ]
+}' > ~/.openclaw/openclaw.json.tmp && mv ~/.openclaw/openclaw.json.tmp ~/.openclaw/openclaw.json
+```
+
+#### 重启 Gateway
+
+```bash
+openclaw gateway restart
+```
+
+#### 验证配置
+
+```bash
+# 查看所有提供商
+cat ~/.openclaw/openclaw.json | jq '.models.providers | keys'
+
+# 查看 DeepSeek 配置
+cat ~/.openclaw/openclaw.json | jq '.models.providers.deepseek'
+```
+
+#### 在 Telegram 中使用
+
+```
+"用 DeepSeek V3 分析这只股票"
+"用 DeepSeek R1 推理这道数学题"
+"切换到 DeepSeek 模型写代码"
+```
+
+#### 模型选择建议
+
+| 模型 | 用途 | 成本 |
+|------|------|------|
+| **deepseek-chat (V3)** | 日常任务、代码、聊天 | $0.27/1M tokens |
+| **deepseek-reasoner (R1)** | 复杂推理、数学、逻辑分析 | $0.80/1M in, $2.40/1M out |
+
 ---
 
 *本文档由 Claude Code 自动生成 - 2026年3月5日*
