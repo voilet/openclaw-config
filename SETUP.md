@@ -380,6 +380,48 @@ cat ~/.openclaw/openclaw.json | jq '.models.providers.deepseek'
 | **deepseek-chat (V3)** | 日常任务、代码、聊天 | $0.27/1M tokens |
 | **deepseek-reasoner (R1)** | 复杂推理、数学、逻辑分析 | $0.80/1M in, $2.40/1M out |
 
+#### 配置状态验证
+
+```bash
+# 验证 API Key 有效性
+curl -s https://api.deepseek.com/v1/models \
+  -H "Authorization: Bearer YOUR_API_KEY" | jq '.'
+
+# 测试 Chat API
+curl -s https://api.deepseek.com/v1/chat/completions \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"model":"deepseek-chat","messages":[{"role":"user","content":"hi"}],"max_tokens":10}' | jq '.choices[0].message.content'
+
+# 验证配置已加载
+openclaw config validate
+```
+
+#### 当前配置状态（2026-03-05）
+
+| 项目 | 状态 | 说明 |
+|------|------|------|
+| **API Key** | ✅ 已配置 | sk-e32a...effa2 |
+| **Provider** | ✅ 已添加 | deepseek |
+| **Models** | ✅ 已定义 | deepseek-chat, deepseek-reasoner |
+| **API 测试** | ✅ 通过 | curl 验证可用 |
+| **Gateway** | ✅ 已重启 | 配置已热加载 |
+| **CLI 显示** | ⚠️ 不显示 | `models list` 可能不显示，但不影响使用 |
+
+#### 使用说明
+
+**CLI `models list` 可能不显示 DeepSeek 模型**，但这不影响在 Telegram 中的实际使用。
+
+在 Telegram 中直接使用自然语言触发：
+
+```
+"用 DeepSeek V3 分析这只股票"
+"用 DeepSeek R1 推理这个问题"
+"切换到 DeepSeek 模型写代码"
+```
+
+或者通过 `deepseek-v3-lite-agent` 和 `deepseek-api` 技能自动触发。
+
 ---
 
 *本文档由 Claude Code 自动生成 - 2026年3月5日*
