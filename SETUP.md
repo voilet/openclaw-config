@@ -197,4 +197,124 @@ cp memory/main.sqlite ~/.openclaw/memory/
 
 ---
 
+## 2026-03-05 技能安装记录
+
+### 环境工具安装
+
+通过 Homebrew 和 pipx 安装了以下工具：
+
+| 工具 | 版本 | 安装方式 | 用途 |
+|------|------|----------|------|
+| **openai-whisper** | 20250625 | pipx | OpenAI 语音识别模型 |
+| **Obsidian** | 1.12.4 | Homebrew Cask | 笔记应用 |
+| **mcporter** | 0.7.3 | npm | MCP 服务器管理工具 |
+| **clawhub** | 0.7.0 | npm | OpenClaw 技能市场 CLI |
+
+### 安装过程中遇到的问题及解决方案
+
+#### 1. PEP 668 保护错误
+**问题**：使用 `pip3 install` 安装 Python 包时报错：
+```
+error: externally-managed-environment
+× This environment is externally managed
+```
+
+**原因**：macOS Homebrew Python 受 PEP 668 保护，禁止直接安装全局包。
+
+**解决方案**：使用 `pipx` 安装 CLI 工具：
+```bash
+brew install pipx
+pipx ensurepath
+pipx install openai-whisper
+```
+
+#### 2. Obsidian 安装冲突
+**问题**：Homebrew 安装 Obsidian 时报错：
+```
+Error: It seems there is already a Binary at '/opt/homebrew/bin/obsidian'
+```
+
+**原因**：之前通过 npm 安装了 `obsidian-cli`，与 Obsidian 桌面应用冲突。
+
+**解决方案**：卸载 npm 版本后重新安装：
+```bash
+npm uninstall -g obsidian-cli
+brew install --cask obsidian
+```
+
+### ClawHub 技能安装
+
+通过 `clawhub install` 安装了以下技能：
+
+| 技能 | 版本 | 用途 | 备注 |
+|------|------|------|------|
+| **session-logs** | 1.0.0 | 会话日志记录 | 基础技能 |
+| **model-usage-linux** | 1.0.0 | 模型使用统计 | Linux 环境适用 |
+| **github** | 1.0.0 | GitHub 仓库操作 | 开发者必备 |
+| **tmux** | 1.0.0 | 终端复用器管理 | 多终端会话 |
+| **developer** | 1.0.0 | 通用开发工具集 | 开发辅助 |
+| **python-executor** | 0.1.5 | Python 代码执行 | ⚠️ 标记为可疑，需 --force |
+| **github-cli** | 1.0.0 | GitHub CLI 集成 | ⚠️ 标记为可疑，需 --force |
+
+### ClawHub 常用命令
+
+```bash
+# 搜索技能
+clawhub search <关键词>
+
+# 安装技能
+clawhub install <skill-name>
+
+# 强制安装被标记的技能
+clawhub install <skill-name> --force
+
+# 列出已安装技能
+clawhub list
+
+# 更新技能
+clawhub update
+
+# 查看技能详情
+clawhub inspect <skill-name>
+```
+
+### MCPorter 常用命令
+
+```bash
+# 添加 MCP 服务器
+mcporter config add <name> <url>
+
+# 列出已配置的 MCP
+mcporter list
+```
+
+### 当前已安装技能总览
+
+```bash
+$ clawhub list
+session-logs       1.0.0
+model-usage-linux  1.0.0
+github             1.0.0
+tmux               1.0.0
+developer          1.0.0
+python-executor    0.1.5
+github-cli         1.0.0
+```
+
+### Whisper 使用示例
+
+```bash
+# 转录音频文件（中文）
+whisper audio.mp3 --language Chinese --model medium
+
+# 模型选择参考
+# tiny    - 最快，准确度最低
+# base    - 平衡
+# small   - 较好
+# medium  - 推荐（需要足够显存/内存）
+# large   - 最准确，资源消耗最大
+```
+
+---
+
 *本文档由 Claude Code 自动生成 - 2026年3月5日*
