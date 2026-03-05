@@ -16,7 +16,7 @@ openclaw-config/
 ├── config/
 │   └── openclaw.json          # 主配置文件（API keys 已清理）
 ├── skills/
-│   ├── claude-code-clawdbot-skill/  # Claude Code 集成技能
+│   ├── claude-code-clawdbot-skill/  # Claude Code 集成技能（多任务开发用 tmux）
 │   ├── cma-weather-skill/           # 中国气象局天气技能
 │   └── web-search-skill/            # 网页搜索技能
 ├── memory/
