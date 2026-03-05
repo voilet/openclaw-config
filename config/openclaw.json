@@ -1,7 +1,10 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.3.2",
-    "lastTouchedAt": "2026-03-04T14:05:30.492Z"
+    "lastTouchedAt": "2026-03-05T04:18:37.131Z"
+  },
+  "env": {
+    "TUSHARE_TOKEN": "f827c5ba2be4e03710eda2f56fbf5c851ef5a4fbfd93138762b01f0a"
   },
   "wizard": {
     "lastRunAt": "2026-03-04T05:16:41.928Z",
@@ -110,6 +113,45 @@
               "cacheWrite": 0
             },
             "contextWindow": 128000,
+            "maxTokens": 8192
+          }
+        ]
+      },
+      "deepseek": {
+        "baseUrl": "https://api.deepseek.com/v1",
+        "apiKey": "{{API_KEY}}",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "deepseek/deepseek-chat",
+            "name": "DeepSeek V3",
+            "reasoning": false,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0.27,
+              "output": 0.27,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 64000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "deepseek/deepseek-reasoner",
+            "name": "DeepSeek R1",
+            "reasoning": true,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0.80,
+              "output": 2.40,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 64000,
             "maxTokens": 8192
           }
         ]
@@ -253,19 +295,19 @@
     "telegram": {
       "enabled": true,
       "dmPolicy": "pairing",
-      "groupPolicy": "allowlist",
+      "groupPolicy": "open",
       "streaming": "partial",
       "accounts": {
         "default": {
           "dmPolicy": "pairing",
           "botToken": "{{BOT_TOKEN}}",
-          "groupPolicy": "allowlist",
+          "groupPolicy": "open",
           "streaming": "partial"
         },
         "glm-bot": {
           "dmPolicy": "pairing",
           "botToken": "{{BOT_TOKEN}}",
-          "groupPolicy": "allowlist",
+          "groupPolicy": "open",
           "streaming": "partial"
         }
       }
