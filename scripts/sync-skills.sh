@@ -30,11 +30,15 @@ if [ ! -d "$SKILLS_SOURCE" ]; then
     exit 1
 fi
 
+cd "$BACKUP_DIR"
+
+# Pull latest changes to avoid conflicts
+git fetch origin
+git reset --hard origin/main 2>/dev/null || true
+
 # Ensure skills destination exists and is clean
 rm -rf "$SKILLS_DEST"
 mkdir -p "$SKILLS_DEST"
-
-cd "$BACKUP_DIR"
 
 # Sync each skill directory
 for skill_dir in "$SKILLS_SOURCE"/*/; do
