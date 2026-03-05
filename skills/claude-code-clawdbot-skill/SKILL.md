@@ -152,65 +152,6 @@ claude -p "List endpoints" --output-format json
 ```
 This is ideal for CI and automation.
 
-## Multi-task Development with tmux (多任务开发最佳实践)
-
-当使用 Claude Code 同时开发多个任务时，**强烈推荐使用 tmux** 来管理会话：
-
-### 为什么使用 tmux
-
-1. **状态保持**: 每个 Claude Code 会话独立运行，断开后不丢失上下文
-2. **快速切换**: `tmux switch` 快速在任务间切换
-3. **进度监控**: `tmux capture-pane` 随时查看任务执行状态
-4. **并行开发**: 多个任务可同时进行，互不干扰
-
-### 推荐的 Session 命名规范
-
-```bash
-# 按项目/功能命名
---tmux-session cc-auth      # 认证功能开发
---tmux-session cc-api       # API 开发
---tmux-session cc-fix-bug   # Bug 修复
---tmux-session cc-refactor  # 重构任务
-```
-
-### 常用 tmux 管理命令
-
-```bash
-# 列出所有 Claude Code 会话
-tmux -S /tmp/clawdbot-tmux-sockets/claude-code.sock list-sessions
-
-# 附加到特定会话
-tmux -S /tmp/clawdbot-tmux-sockets/claude-code.sock attach -t cc-auth
-
-# 查看会话输出（不附加）
-tmux -S /tmp/clawdbot-tmux-sockets/claude-code.sock capture-pane -p -t cc-auth -S -100
-
-# 杀死完成的会话
-tmux -S /tmp/clawdbot-tmux-sockets/claude-code.sock kill-session -t cc-auth
-```
-
-### 多任务工作流示例
-
-```bash
-# 任务1: 开发认证模块
-./scripts/claude_code_run.py \
-  --mode interactive \
-  --tmux-session cc-auth \
-  -p "Implement OAuth2 authentication"
-
-# 任务2: 开发 API 端点（并行）
-./scripts/claude_code_run.py \
-  --mode interactive \
-  --tmux-session cc-api \
-  -p "Create REST API endpoints for user management"
-
-# 随时检查任务1的进度
-tmux -S /tmp/clawdbot-tmux-sockets/claude-code.sock capture-pane -p -t cc-auth -S -50
-
-# 切换到任务2继续工作
-tmux -S /tmp/clawdbot-tmux-sockets/claude-code.sock attach -t cc-api
-```
-
 ## Interactive mode (tmux)
 
 For multi-step workflows like Superpowers, use interactive mode:
