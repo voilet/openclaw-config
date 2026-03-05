@@ -1,0 +1,24 @@
+# Secrets - NEVER commit these
+*.secret
+*.key
+.env
+.env.*
+secrets/
+
+# Sensitive data
+credentials/
+*.token
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/

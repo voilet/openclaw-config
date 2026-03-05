@@ -1,0 +1,208 @@
+{
+  "meta": {
+    "lastTouchedVersion": "2026.3.2",
+    "lastTouchedAt": "2026-03-04T14:05:30.492Z"
+  },
+  "wizard": {
+    "lastRunAt": "2026-03-04T05:16:41.928Z",
+    "lastRunVersion": "2026.3.2",
+    "lastRunCommand": "configure",
+    "lastRunMode": "local"
+  },
+  "auth": {
+    "profiles": {
+      "qwen-portal:default": {
+        "provider": "qwen-portal",
+        "mode": "oauth"
+      }
+    }
+  },
+  "models": {
+    "providers": {
+      "bigmodel": {
+        "baseUrl": "https://open.bigmodel.cn/api/anthropic",
+        "apiKey": "{{BIGMODEL_API_KEY}}",
+        "api": "anthropic-messages",
+        "models": [
+          {
+            "id": "glm-5",
+            "name": "GLM-5 (Opus)",
+            "reasoning": false,
+            "input": ["text"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "glm-4.7",
+            "name": "GLM-4.7 (Sonnet)",
+            "reasoning": false,
+            "input": ["text"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "glm-4.5-air",
+            "name": "GLM-4.5 Air (Haiku)",
+            "reasoning": false,
+            "input": ["text"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          }
+        ]
+      },
+      "qwen-portal": {
+        "baseUrl": "https://portal.qwen.ai/v1",
+        "apiKey": "qwen-oauth",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "coder-model",
+            "name": "Qwen Coder",
+            "reasoning": false,
+            "input": ["text"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "vision-model",
+            "name": "Qwen Vision",
+            "reasoning": false,
+            "input": ["text", "image"],
+            "cost": { "input": 0, "output": 0, "cacheRead": 0, "cacheWrite": 0 },
+            "contextWindow": 128000,
+            "maxTokens": 8192
+          }
+        ]
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "model": {
+        "primary": "bigmodel/glm-5"
+      },
+      "models": {
+        "bigmodel/glm-5": { "alias": "claude" },
+        "bigmodel/glm-4.7": { "alias": "claude-sonnet" },
+        "bigmodel/glm-4.5-air": { "alias": "claude-haiku" },
+        "qwen-portal/coder-model": { "alias": "qwen" },
+        "qwen-portal/vision-model": {}
+      },
+      "workspace": "{{HOME}}/.openclaw/workspace",
+      "compaction": { "mode": "safeguard" },
+      "maxConcurrent": 4,
+      "subagents": { "maxConcurrent": 8 }
+    },
+    "list": [
+      {
+        "id": "main",
+        "tools": {
+          "alsoAllow": ["read", "write", "edit", "apply_patch"]
+        }
+      },
+      {
+        "id": "claude-code",
+        "name": "claude-code",
+        "workspace": "{{HOME}}/Projects/openclaw-projects",
+        "agentDir": "{{HOME}}/.openclaw/agents/claude-code/agent",
+        "model": "bigmodel/glm-5",
+        "tools": {
+          "profile": "coding",
+          "allow": ["exec", "read", "write", "edit", "bash", "process", "web_search", "web_fetch"]
+        }
+      },
+      {
+        "id": "glm-bot",
+        "name": "GLM Code Bot",
+        "workspace": "{{HOME}}/.openclaw/workspace-glm-bot",
+        "agentDir": "{{HOME}}/.openclaw/agents/glm-bot/agent",
+        "model": "bigmodel/glm-4.7",
+        "tools": {
+          "profile": "coding",
+          "allow": ["exec", "read", "write", "edit", "bash", "process", "web_search", "web_fetch"]
+        }
+      }
+    ]
+  },
+  "tools": {
+    "profile": "messaging"
+  },
+  "bindings": [
+    {
+      "agentId": "claude-code",
+      "match": { "channel": "telegram", "accountId": "default" }
+    },
+    {
+      "agentId": "glm-bot",
+      "match": { "channel": "telegram", "accountId": "glm-bot" }
+    }
+  ],
+  "messages": {
+    "ackReactionScope": "group-mentions"
+  },
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto",
+    "restart": true,
+    "ownerDisplay": "raw"
+  },
+  "session": {
+    "dmScope": "per-channel-peer"
+  },
+  "hooks": {
+    "internal": {
+      "enabled": true,
+      "entries": {
+        "session-memory": { "enabled": true },
+        "command-logger": { "enabled": true },
+        "bootstrap-extra-files": { "enabled": true },
+        "boot-md": { "enabled": true }
+      }
+    }
+  },
+  "channels": {
+    "telegram": {
+      "enabled": true,
+      "dmPolicy": "pairing",
+      "groupPolicy": "allowlist",
+      "streaming": "partial",
+      "accounts": {
+        "default": {
+          "dmPolicy": "pairing",
+          "botToken": "{{TELEGRAM_BOT_TOKEN_1}}",
+          "groupPolicy": "allowlist",
+          "streaming": "partial"
+        },
+        "glm-bot": {
+          "dmPolicy": "pairing",
+          "botToken": "{{TELEGRAM_BOT_TOKEN_2}}",
+          "groupPolicy": "allowlist",
+          "streaming": "partial"
+        }
+      }
+    }
+  },
+  "gateway": {
+    "port": 18789,
+    "mode": "local",
+    "bind": "loopback",
+    "auth": {
+      "mode": "token",
+      "token": "{{GATEWAY_AUTH_TOKEN}}"
+    },
+    "tailscale": {
+      "mode": "off",
+      "resetOnExit": false
+    }
+  },
+  "plugins": {
+    "entries": {
+      "qwen-portal-auth": { "enabled": true },
+      "telegram": { "enabled": true }
+    }
+  }
+}
