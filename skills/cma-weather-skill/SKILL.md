@@ -154,6 +154,20 @@ for day in d['daily']:
 "
 ```
 
+## ⚠️ 重要限制 / Important Limitations
+
+**CMA API 有严格的 WAF 防护，从国外 IP 或命令行请求可能被拦截。**
+
+- 如果 CMA API 返回 WAF 拦截页面，**回退使用 wttr.in**（默认 weather 技能）
+- 建议在中国大陆服务器上使用此技能
+- 国外服务器请使用 `weather` 技能（wttr.in）
+
+**The CMA API has strict WAF protection. Requests from non-China IPs or CLI may be blocked.**
+
+- If blocked, fall back to wttr.in (default `weather` skill)
+- Best used from servers in mainland China
+- For international servers, use the `weather` skill instead
+
 ## Notes
 
 - Uses official CMA data (中国气象局官方数据)
@@ -162,3 +176,4 @@ for day in d['daily']:
 - No API key required
 - Works best for Chinese locations
 - Use browser User-Agent to avoid WAF blocking
+- **May be blocked by WAF from non-China IPs**
