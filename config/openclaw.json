@@ -238,6 +238,20 @@
             "web_fetch"
           ]
         }
+      },
+      {
+        "id": "cron-executor",
+        "name": "Cron Executor",
+        "workspace": "/tmp",
+        "agentDir": "/Users/voilet/.openclaw/agents/cron-executor/agent",
+        "model": "bigmodel/glm-5",
+        "tools": {
+          "profile": "coding",
+          "allow": [
+            "bash",
+            "exec"
+          ]
+        }
       }
     ]
   },
