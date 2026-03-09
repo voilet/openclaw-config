@@ -1,7 +1,7 @@
 {
   "meta": {
-    "lastTouchedVersion": "2026.3.2",
-    "lastTouchedAt": "2026-03-05T04:18:37.131Z"
+    "lastTouchedVersion": "2026.3.7",
+    "lastTouchedAt": "2026-03-09T06:23:51.322Z"
   },
   "env": {
     "TUSHARE_TOKEN": "f827c5ba2be4e03710eda2f56fbf5c851ef5a4fbfd93138762b01f0a"
@@ -146,12 +146,69 @@
               "text"
             ],
             "cost": {
-              "input": 0.80,
-              "output": 2.40,
+              "input": 0.8,
+              "output": 2.4,
               "cacheRead": 0,
               "cacheWrite": 0
             },
             "contextWindow": 64000,
+            "maxTokens": 8192
+          }
+        ]
+      },
+      "gemini": {
+        "baseUrl": "https://generativelanguage.googleapis.com/v1beta",
+        "apiKey": "{{API_KEY}}",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "gemini-2.5-pro",
+            "name": "Gemini 2.5 Pro",
+            "reasoning": false,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 2800000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "gemini-2.5-flash",
+            "name": "Gemini 2.5 Flash",
+            "reasoning": false,
+            "input": [
+              "text",
+              "image"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 2800000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "gemini-2.0-flash-thinking",
+            "name": "Gemini 2.0 Flash Thinking",
+            "reasoning": true,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            },
+            "contextWindow": 2800000,
             "maxTokens": 8192
           }
         ]
@@ -179,8 +236,19 @@
         "qwen-portal/vision-model": {}
       },
       "workspace": "/Users/voilet/.openclaw/workspace",
+      "memorySearch": {
+        "enabled": true,
+        "provider": "openai"
+      },
+      "contextPruning": {
+        "mode": "cache-ttl",
+        "ttl": "1h"
+      },
       "compaction": {
         "mode": "safeguard"
+      },
+      "heartbeat": {
+        "every": "30m"
       },
       "maxConcurrent": 4,
       "subagents": {
@@ -272,6 +340,12 @@
         "channel": "telegram",
         "accountId": "glm-bot"
       }
+    },
+    {
+      "agentId": "main",
+      "match": {
+        "channel": "feishu"
+      }
     }
   ],
   "messages": {
@@ -325,6 +399,24 @@
           "streaming": "partial"
         }
       }
+    },
+    "feishu": {
+      "enabled": true,
+      "appId": "cli_a9bd5622fbf59bd9",
+      "appSecret": "gCOHJSRtpQqQUSlD0BBUz0NOajH6fO34",
+      "domain": "feishu",
+      "connectionMode": "websocket",
+      "dmPolicy": "pairing",
+      "groupPolicy": "open",
+      "requireMention": true,
+      "streaming": true,
+      "tools": {
+        "doc": true,
+        "chat": true,
+        "wiki": true,
+        "drive": true,
+        "perm": false
+      }
     }
   },
   "gateway": {
@@ -347,6 +439,24 @@
       },
       "telegram": {
         "enabled": true
+      },
+      "feishu": {
+        "enabled": true
+      }
+    },
+    "installs": {
+      "feishu": {
+        "source": "npm",
+        "spec": "@openclaw/feishu",
+        "installPath": "/Users/voilet/.openclaw/extensions/feishu",
+        "version": "2026.3.7",
+        "resolvedName": "@openclaw/feishu",
+        "resolvedVersion": "2026.3.7",
+        "resolvedSpec": "@openclaw/feishu@2026.3.7",
+        "integrity": "sha512-CHPcL+WHYKYR2HJKRYsRtlXx/wbQRy5axltjjH9qXkR8ghxygDmOHZREjxyFEbjFJ3wnIuvgjLE7JYTg3nPpDA==",
+        "shasum": "c4b31dbe2ff0bc7034334873482ad18ac60a0767",
+        "resolvedAt": "2026-03-09T06:23:39.767Z",
+        "installedAt": "2026-03-09T06:23:50.612Z"
       }
     }
   }
