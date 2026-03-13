@@ -1,7 +1,7 @@
 {
   "meta": {
-    "lastTouchedVersion": "2026.3.7",
-    "lastTouchedAt": "2026-03-09T06:23:51.322Z"
+    "lastTouchedVersion": "2026.3.11",
+    "lastTouchedAt": "2026-03-13T06:49:17.080Z"
   },
   "env": {
     "TUSHARE_TOKEN": "f827c5ba2be4e03710eda2f56fbf5c851ef5a4fbfd93138762b01f0a"
@@ -12,6 +12,10 @@
     "lastRunCommand": "configure",
     "lastRunMode": "local"
   },
+  "browser": {
+    "enabled": true,
+    "defaultProfile": "openclaw"
+  },
   "auth": {
     "profiles": {
       "qwen-portal:default": {
@@ -21,6 +25,7 @@
     }
   },
   "models": {
+    "mode": "merge",
     "providers": {
       "bigmodel": {
         "baseUrl": "https://open.bigmodel.cn/api/anthropic",
@@ -212,6 +217,17 @@
             "maxTokens": 8192
           }
         ]
+      },
+      "qclaw": {
+        "baseUrl": "https://mmgrcalltoken.3g.qq.com/aizone/v1",
+        "api": "openai-completions",
+        "models": [
+          {
+            "id": "modelroute",
+            "name": "modelroute"
+          }
+        ],
+        "apiKey": "{{API_KEY}}"
       }
     }
   },
@@ -426,12 +442,23 @@
         "drive": true,
         "perm": false
       }
+    },
+    "wechat-access": {
+      "enabled": true,
+      "wsUrl": "wss://mmgrcalltoken.3g.qq.com/agentwss",
+      "token": "{{TOKEN}}"
     }
   },
   "gateway": {
     "port": 18789,
     "mode": "local",
     "bind": "loopback",
+    "controlUi": {
+      "allowedOrigins": [
+        "file://",
+        "null"
+      ]
+    },
     "auth": {
       "mode": "token",
       "token": "{{TOKEN}}"
@@ -441,7 +468,27 @@
       "resetOnExit": false
     }
   },
+  "skills": {
+    "load": {
+      "extraDirs": [
+        "/Applications/QClaw.app/Contents/Resources/openclaw/config/skills"
+      ]
+    }
+  },
   "plugins": {
+    "enabled": true,
+    "allow": [
+      "wechat-access",
+      "content-security",
+      "telegram",
+      "feishu",
+      "qwen-portal-auth"
+    ],
+    "load": {
+      "paths": [
+        "/Applications/QClaw.app/Contents/Resources/openclaw/config/extensions"
+      ]
+    },
     "entries": {
       "qwen-portal-auth": {
         "enabled": true
@@ -451,6 +498,16 @@
       },
       "feishu": {
         "enabled": true
+      },
+      "wechat-access": {
+        "enabled": true
+      },
+      "content-security": {
+        "enabled": true,
+        "config": {
+          "endpoint": "https://jprx.m.qq.com/data/4064/forward",
+          "token": "{{TOKEN}}"
+        }
       }
     },
     "installs": {
