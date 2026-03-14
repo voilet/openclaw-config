@@ -442,11 +442,6 @@
         "drive": true,
         "perm": false
       }
-    },
-    "wechat-access": {
-      "enabled": true,
-      "wsUrl": "wss://mmgrcalltoken.3g.qq.com/agentwss",
-      "token": "{{TOKEN}}"
     }
   },
   "gateway": {
@@ -454,10 +449,7 @@
     "mode": "local",
     "bind": "loopback",
     "controlUi": {
-      "allowedOrigins": [
-        "file://",
-        "null"
-      ]
+      "allowedOrigins": []
     },
     "auth": {
       "mode": "token",
@@ -470,24 +462,18 @@
   },
   "skills": {
     "load": {
-      "extraDirs": [
-        "/Applications/QClaw.app/Contents/Resources/openclaw/config/skills"
-      ]
+      "extraDirs": []
     }
   },
   "plugins": {
     "enabled": true,
     "allow": [
-      "wechat-access",
-      "content-security",
       "telegram",
       "feishu",
       "qwen-portal-auth"
     ],
     "load": {
-      "paths": [
-        "/Applications/QClaw.app/Contents/Resources/openclaw/config/extensions"
-      ]
+      "paths": []
     },
     "entries": {
       "qwen-portal-auth": {
@@ -498,16 +484,6 @@
       },
       "feishu": {
         "enabled": true
-      },
-      "wechat-access": {
-        "enabled": true
-      },
-      "content-security": {
-        "enabled": true,
-        "config": {
-          "endpoint": "https://jprx.m.qq.com/data/4064/forward",
-          "token": "{{TOKEN}}"
-        }
       }
     },
     "installs": {
