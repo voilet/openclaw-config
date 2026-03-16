@@ -1,7 +1,7 @@
 {
   "meta": {
-    "lastTouchedVersion": "2026.3.11",
-    "lastTouchedAt": "2026-03-13T06:49:17.080Z"
+    "lastTouchedVersion": "2026.3.13",
+    "lastTouchedAt": "2026-03-16T02:25:11.772Z"
   },
   "env": {
     "TUSHARE_TOKEN": "f827c5ba2be4e03710eda2f56fbf5c851ef5a4fbfd93138762b01f0a"
@@ -220,14 +220,14 @@
       },
       "qclaw": {
         "baseUrl": "https://mmgrcalltoken.3g.qq.com/aizone/v1",
+        "apiKey": "{{API_KEY}}",
         "api": "openai-completions",
         "models": [
           {
             "id": "modelroute",
             "name": "modelroute"
           }
-        ],
-        "apiKey": "{{API_KEY}}"
+        ]
       }
     }
   },
@@ -491,14 +491,14 @@
         "source": "npm",
         "spec": "@openclaw/feishu",
         "installPath": "/Users/voilet/.openclaw/extensions/feishu",
-        "version": "2026.3.7",
+        "version": "2026.3.13",
         "resolvedName": "@openclaw/feishu",
-        "resolvedVersion": "2026.3.7",
-        "resolvedSpec": "@openclaw/feishu@2026.3.7",
-        "integrity": "sha512-CHPcL+WHYKYR2HJKRYsRtlXx/wbQRy5axltjjH9qXkR8ghxygDmOHZREjxyFEbjFJ3wnIuvgjLE7JYTg3nPpDA==",
-        "shasum": "c4b31dbe2ff0bc7034334873482ad18ac60a0767",
-        "resolvedAt": "2026-03-09T06:23:39.767Z",
-        "installedAt": "2026-03-09T06:23:50.612Z"
+        "resolvedVersion": "2026.3.13",
+        "resolvedSpec": "@openclaw/feishu@2026.3.13",
+        "integrity": "sha512-D5vPkgGZ9lfCQnDFlGrQN6NCSUYRgYW9k7amW3qlm9zBI4Sp+alRZVqLZ4yZ2eCXHjw9RVp/L75wjJ7NBQyfEw==",
+        "shasum": "39128ff918f8d3387331818cbe3f8b24a82e4c0d",
+        "resolvedAt": "2026-03-16T02:17:25.880Z",
+        "installedAt": "2026-03-16T02:17:29.800Z"
       }
     }
   }
