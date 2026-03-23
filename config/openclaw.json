@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.3.13",
-    "lastTouchedAt": "2026-03-16T02:25:11.772Z"
+    "lastTouchedAt": "2026-03-23T04:23:36.658Z"
   },
   "env": {
     "TUSHARE_TOKEN": "f827c5ba2be4e03710eda2f56fbf5c851ef5a4fbfd93138762b01f0a"
@@ -470,7 +470,8 @@
     "allow": [
       "telegram",
       "feishu",
-      "qwen-portal-auth"
+      "qwen-portal-auth",
+      "openclaw-weixin"
     ],
     "load": {
       "paths": []
@@ -483,6 +484,9 @@
         "enabled": true
       },
       "feishu": {
+        "enabled": true
+      },
+      "openclaw-weixin": {
         "enabled": true
       }
     },
@@ -499,6 +503,19 @@
         "shasum": "39128ff918f8d3387331818cbe3f8b24a82e4c0d",
         "resolvedAt": "2026-03-16T02:17:25.880Z",
         "installedAt": "2026-03-16T02:17:29.800Z"
+      },
+      "openclaw-weixin": {
+        "source": "npm",
+        "spec": "@tencent-weixin/openclaw-weixin",
+        "installPath": "/Users/voilet/.openclaw/extensions/openclaw-weixin",
+        "version": "1.0.2",
+        "resolvedName": "@tencent-weixin/openclaw-weixin",
+        "resolvedVersion": "1.0.2",
+        "resolvedSpec": "@tencent-weixin/openclaw-weixin@1.0.2",
+        "integrity": "sha512-kYPEowHB/0VWt9nQFee/AS6Fb+jbnu38wjkgZDBdKTuJoBL0IBW2obQ0ymgFKBFJJL9rDwnFrb/17ORGZD/X8Q==",
+        "shasum": "244baf0a873683a9c350d0f0b5bc055c07b0eb39",
+        "resolvedAt": "2026-03-23T04:23:22.369Z",
+        "installedAt": "2026-03-23T04:23:35.584Z"
       }
     }
   }
